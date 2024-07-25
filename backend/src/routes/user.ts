@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode,sign,verify } from 'hono/jwt'
+import { sign } from 'hono/jwt'
 import { signinInput, signupInput } from "@prince981620/medium-common";
 
 export const userRouter = new Hono<{
@@ -67,7 +67,9 @@ userRouter.post('/signin',async (c)=>{
         return c.json({error: "user not found"});
       }else{
         const token = await sign({id:user.id},c.env.JWT_SECRET);
-        return c.json({ token });
+        return c.json({
+          jwt: token
+        });
       }
     } catch(e){
       c.status(411);

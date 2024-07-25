@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode,sign,verify } from 'hono/jwt'
+import { verify } from 'hono/jwt'
 import { createblogInput, updateblogInput } from "@prince981620/medium-common";
 
 
@@ -59,6 +59,7 @@ blogRouter.post('/',async (c)=>{
                 authorId: c.get("userId")
             }
         })
+        console.log("after success",success)
         if(response.id){
             return c.json({
                 id: response.id
@@ -90,7 +91,8 @@ blogRouter.put('/',async (c)=>{
             },
             data: {
                 title: body.title,
-                content: body.content
+                content: body.content,
+                publishedDate: body.publishedDate
             }
         })
         if(editResponse.id){
@@ -111,9 +113,22 @@ blogRouter.get('/bulk',async (c)=>{
         datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate())
     try {
-        const allBlog = await prisma.post.findMany();
+        const allBlog = await prisma.post.findMany({
+            select:{
+                id: true,
+                title: true,
+                content: true,
+                publishedDate: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+
+            }
+        });
         if(allBlog){
-            c.status(400);
+            c.status(200);
             return c.json({allBlog});
         }else {
             c.status(411);
@@ -133,10 +148,21 @@ blogRouter.get('/:id',async (c)=>{
         const blog = await prisma.post.findFirst({
             where: {
                 id: id
+            },
+            select:{
+                id: true,
+                title: true,
+                content: true,
+                publishedDate: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         })
         if(blog){
-            c.status(400);
+            c.status(200);
             return c.json({blog})
         }else {
             return c.json({msg: "invalid blog id"})
