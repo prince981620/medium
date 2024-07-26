@@ -8,13 +8,13 @@ export const FullBlog = ({ blog }: {blog:Blog})=>{
         <div className="flex justify-center">
         <div className="pt-12 grid grid-cols-12 px-10 w-full pt-200 max-w-screen-xl">
             <div className="col-span-8">
-                <div className="text-5xl font-extrabold ">
+                <div className="text-5xl font-extrabold break-words overflow-hidden">
                     {blog.title}
                 </div>
                 <div className="text-slate-500 pt-2">
                     Posted on : {blog.publishedDate.slice(0,10)}
                 </div>
-                <div className="pt-4">
+                <div className="pt-4 content break-words overflow-hidden">
                     {blog.content}
                 </div>
             </div>

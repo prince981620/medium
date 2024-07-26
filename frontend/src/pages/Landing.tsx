@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 
 export const Landing = ()=>{
     return <div>
-        <div className="px-10 py-4 border-b flex justify-between px-10">
-            <div className="text-bold text-lg">
+        <div className="flex justify-between px-10 py-4 border-b w-full">
+            <div className="text-bold text-lg bg pt-2">
                  Story | Medium-Clone
             </div>
         <div>
