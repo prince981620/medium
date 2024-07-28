@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 
 export const Landing = ()=>{
-    return <div>
+    return <div className="container mx-auto px-4">
         <div className="flex justify-between px-10 py-4 border-b w-full">
             <div className="text-bold text-lg bg pt-2">
                  Story | Medium-Clone

@@ -17,7 +17,7 @@ export const AuthSignin = ()=>{
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`,signinInputs);
             const jwt = response.data.jwt;
             localStorage.setItem("token",jwt);
-            localStorage.setItem("Username",signinInputs.email || "");
+            localStorage.setItem("Username",signinInputs.email || "Anonymous");
             navigate("/blogs")
         }catch(e){
             alert("Error while Signing in")
