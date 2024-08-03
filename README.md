@@ -1,4 +1,4 @@
-# MEDIUM_BLOG
+# MEDIUM_BLOG https://medium-blog-clone-story.vercel.app/
 
 ## building medium in the following stack
 - React in the frontend
